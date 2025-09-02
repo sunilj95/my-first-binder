@@ -1,0 +1,25 @@
+#import sys
+#sys.path.append('..')
+from haskoning_s_curve.scurve import SCurve
+
+# WITH Landuse col
+# SC = SCurve(elevationgrid=None,
+#             shapefile=r'c:\local\aaenmaas\Meerven.shp',
+#             namecol='Name',
+#             outputfolder=r'c:\local\aaenmaas\meerven_5cm')
+
+# WITHOUT Landuse col
+SC = SCurve(elevationgrid='input/ahn3.tif',
+            shapefile=r'input/example.gpkg',
+            namecol='Name',
+            landusecol='Landuse',
+            outputfolder='output/example')
+
+SC.s_curve_table(binsize=0.05)
+SC.get_percentiles(percentile=[5, 10, 25, 100])
+SC.get_lowest_area(areas=[1000, 2000, 5000, 10000, 100])
+SC.s_curve_figure(plot_percentile=True, html_export=True)
+SC.storage_curve_figure(png_export=True, html_export=True)
+SC.s_curve_map()
+SC.lowest_grid(percentage=2, export_grids=True, export_mapbox=True)
+
